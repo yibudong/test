@@ -33,9 +33,6 @@ export default {
 </script>
 
 <style scoped>
-.vtest{
-  height:100%;
-}
 .drop-enter-active {
   transition: all .5s ease;
 }
