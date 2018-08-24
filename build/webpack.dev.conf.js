@@ -9,6 +9,38 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
+const express =require('express')   //node.js内置框架
+
+const apiServer=express() //请求server
+var bodyParser=require('body-parser')
+apiServer.use(bodyParser.urlencoded({extended:true}))
+apiServer.use(bodyParser.json())
+var apiRouter=express.Router() //express框架的router函数
+var fs=require('fs')
+apiRouter.route('/:apiName')
+
+.all(function(req,res){
+  fs.readFile('../web-test/static/json-moni/jiekou1.json','utf8',function(err,data){
+    console.log(err)
+    if(err)throw err
+    var data=JSON.parse(data)
+    if(data[req.params.apiName]){
+      res.json(data[req.params.apiName])
+    }else{
+      res.send('no such api name')
+    }
+  })
+})
+
+apiServer.use('/api', apiRouter);
+apiServer.listen(5001, function (err) {
+
+if (err) {
+    console.log(err)
+    return
+}
+console.log('Listening at http://localhost:' + 5001 + '\n')
+})
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
@@ -42,7 +74,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
       poll: config.dev.poll,
-    }
+    },
+    disableHostCheck: true
   },
   plugins: [
     new webpack.DefinePlugin({

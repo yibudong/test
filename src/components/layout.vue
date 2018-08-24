@@ -22,7 +22,6 @@
     </div>
     
     <div class="app-container">
-      
       <keep-alive>
         <router-view></router-view>
       </keep-alive>
@@ -143,6 +142,7 @@ body {
 }
 .fathertest{
   height:100%;
+  position: relative;
 }
 .app-head {
   background: #363636;
@@ -215,5 +215,15 @@ body {
 .g-form-error {
   color: red;
   padding-left: 15px;
+}
+.app-footer{
+  margin:0 auto;
+  width: 100%; 
+  height:40px;
+}
+.app-footer p{
+  margin-top:20px;
+  width:100%;
+  text-align:center;
 }
 </style>

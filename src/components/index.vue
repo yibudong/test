@@ -46,8 +46,12 @@ export default {
     slideShow
   },
   created: function() {
-    this.$http.get("api/getNewsList").then(
+    this.$http.get("api/comments").then(
       res => {
+        console.log('成功了')
+        console.log(res)
+      
+        console.log(res.data)
         this.newsList = res.data;
       },
       err => {
@@ -62,7 +66,7 @@ export default {
         {
           src: require("../assets/slideShow/pic1.jpg"),
           title: "xxx1",
-          href: "detail/analysigs"
+          href: "detail/analysis"
         },
         {
           src: require("../assets/slideShow/pic2.jpg"),
@@ -85,7 +89,7 @@ export default {
           title: "开放产品",
           description: "开放产品是一款开放产品",
           id: "car",
-          toKey: "analysigs",
+          toKey: "analysis",
           saleout: false
         },
         {

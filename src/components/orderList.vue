@@ -6,17 +6,14 @@
         选择产品：
         <v-selection :selections="products" @on-change="productChange"></v-selection>
       </div>
-
       <div class="order-list-option">
         开始日期：
-        <v-date-picker @on-change="getStartDate"></v-date-picker>
+          <v-date-picker @on-change="getStartDate"></v-date-picker>
       </div>
-
       <div class="order-list-option">
         结束日期：
         <v-date-picker @on-change="getEndDate"></v-date-picker>
       </div>
-
       <div class="order-list-option">
         关键词：
         <input type="text" v-model.lazy="query" class="order-query">
@@ -25,30 +22,30 @@
     <div class="order-list-table">
       <table>
         <tr>
-          <th v-for="head in tableHeads" @click="changeOrderType(head)" :class="{active:head.active}">{{ head.label }}</th>
+          <th v-for="head in tableHeads">{{head.label}}</th>
         </tr>
-        <tr v-for="item in tableData" :key="item.period">
-          <td v-for="head in tableHeads">{{ item[head.key] }}</td>
+        <tr v-for="item in tableData">
+          
         </tr>
       </table>
     </div>
   </div>
 </template>
-
 <script>
-import VSelection from '../components/base/selection'
-import VDatePicker from '../components/base/datepicker'
+import VSelection from './base/selection'
+import VDatePicker from './base/datepicker'
 import _ from 'lodash'
+import datepickerVue from './base/datepicker.vue';
 export default {
-  components: {
+  components:{
     VSelection,
     VDatePicker
   },
-  data () {
+  data(){
     return {
-      query: '',
-      productId: 0,
+      query:'',
       startDate: '',
+      productId: 0,
       endDate: '',
       products: [
         {
@@ -98,26 +95,21 @@ export default {
           key: 'amount'
         }
       ],
-      currentOrder: 'asc',
-      tableData: []
+      tableData:[]
     }
   },
-  watch: {
-    query () {
+  watch:{
+    query(){
       this.getList()
     }
   },
-  methods: {
-    productChange (obj) {
-      this.productId = obj.value
-      this.getList()
-    },
-    getStartDate (date) {
+  methods:{
+    getStartDate(data){
       this.startDate = date
       this.getList()
     },
-    getEndDate (date) {
-      this.endDate = date
+    getEndDate(date){
+      this.endDate= date
       this.getList()
     },
     getList () {
@@ -134,38 +126,24 @@ export default {
 
       })
     },
-    changeOrderType (headItem) {
-      this.tableHeads.map((item) => {
-        item.active = false
-        return item
-      })
-      headItem.active = true
-      if (this.currentOrder === 'asc') {
-        this.currentOrder = 'desc'
-      }
-      else if (this.currentOrder === 'desc') {
-        this.currentOrder = 'asc'
-      }
-      this.tableData = _.orderBy(this.tableData, headItem.key, this.currentOrder)
-    }
-  },
-  mounted () {
-    this.getList()
   }
 }
 </script>
-
 <style scoped>
-.order-wrap {
-  width: 1200px;
-  min-height: 800px;
-  margin: 20px auto;
-  overflow: hidden;
+.order-wrap{
+  width:1200px;
+  min-height:800px;
+  margin:20px auto;
+  overflow:hidden;
 }
-.order-wrap h3 {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 20px;
+.order-wrap h3{
+  font-size:20px;
+  font-weight:bold;
+  margin-bottom:20px;
+}
+.order-list-option{
+  display:inline-block;
+  padding-left:15px;
 }
 .order-query {
   height: 25px;
@@ -174,33 +152,5 @@ export default {
   outline: none;
   text-indent: 10px;
 }
-.order-list-option {
-  display: inline-block;
-  padding-left: 15px;
-}
-.order-list-option:first-child {
-  padding-left: 0;
-}
-.order-list-table {
-  margin-top: 20px;
-}
-.order-list-table table {
-  width: 100%;
-  background: #fff;
-}
-.order-list-table td,
-.order-list-table th {
-  border: 1px solid #e3e3e3;
-  text-align: center;
-  padding: 10px 0;
-}
-.order-list-table th {
-  background: #4fc08d;
-  color: #fff;
-  border: 1px solid #4fc08d;
-  cursor: pointer;
-}
-.order-list-table th.active {
-  background: #35495e;
-}
 </style>
+
