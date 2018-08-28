@@ -24,25 +24,18 @@ export default {
     },
     methods:{
         toggleSelection(index){
-            // console.log(this.nowIndexes)
-            // console.log(this.nowIndexes.indexOf(index))
             if(this.nowIndexes.indexOf(index) === -1){
                 this.nowIndexes.push(index)
-                console.log(1)
-                console.log(this.nowIndexes)
             }
             
             else{
                 this.nowIndexes=_.remove(this.nowIndexes,(idx)=>{
-                    console.log(2)
-                    console.log(idx)
                     return idx !==index
                 })
             }
             let nowObjArray = _.map(this.nowIndexes, (idx) => {
                 return this.selections[idx]
             })
-            console.log(nowObjArray)
             this.$emit('on-change',nowObjArray)
         },
         checkActive(index){

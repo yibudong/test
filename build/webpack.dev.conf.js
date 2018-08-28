@@ -33,13 +33,13 @@ apiRouter.route('/:apiName')
 })
 
 apiServer.use('/api', apiRouter);
-apiServer.listen(5001, function (err) {
+apiServer.listen(5002, function (err) {
 
 if (err) {
     console.log(err)
     return
 }
-console.log('Listening at http://localhost:' + 5001 + '\n')
+console.log('Listening at http://localhost:' + 5002 + '\n')
 })
 
 const HOST = process.env.HOST

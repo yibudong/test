@@ -191,10 +191,10 @@ export default {
         period: this.period.value,
         version: buyVersionsArray.join(",")
       };
-      // this.$http.get("/api/getPrice", reqParams).then(res => {
-      //   this.price = res.data.amount;
-      // });
-      this.price='800'
+      this.$http.get("/api/getPrice", reqParams).then(res => {
+        this.price = res.data.amount;
+      });
+      
     },
     showPayDialog() {
       this.isShowPayDialog = true;
@@ -222,20 +222,17 @@ export default {
         version: buyVersionsArray.join(","),
         bankId: this.bankId
       };
-      // this.$http.get("/api/createOrder", reqParams).then(
-      //   res => {
-      //     this.orderId = res.data.orderId;
-      //     this.isShowCheckOrder = true;
-      //     this.isShowPayDialog = false;
-      //   },
-      //   err => {
-      //     this.isShowBuyDialog = false;
-      //     this.isShowErrDialog = true;
-      //   }
-      // );
-      this.orderId = 555;
-      this.isShowCheckOrder = true;
-      this.isShowPayDialog = false;
+      this.$http.get("/api/createOrder", reqParams).then(
+        res => {
+          this.orderId = res.data.orderId;
+          this.isShowCheckOrder = true;
+          this.isShowPayDialog = false;
+        },
+        err => {
+          this.isShowBuyDialog = false;
+          this.isShowErrDialog = true;
+        }
+      );
     }
   },
   mounted() {

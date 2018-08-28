@@ -46,7 +46,7 @@ export default {
     slideShow
   },
   created: function() {
-    this.$http.get("api/comments").then(
+    this.$http.get("api/getNewsList").then(
       res => {
         console.log('成功了')
         console.log(res)
